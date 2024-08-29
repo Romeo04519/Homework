@@ -1,6 +1,3 @@
-from turtledemo.paint import changecolor
-
-
 class Vehicle:
     __COLOR_VARIANTS = ['Red','Black','Blue','White']
     def __init__(self, owner, model, color, engine_power):
