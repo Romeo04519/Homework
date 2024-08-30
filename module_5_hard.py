@@ -1,6 +1,4 @@
 from time import sleep
-from traceback import print_list
-
 
 class User:
     users_base = {}
