@@ -3,13 +3,13 @@ from Tools.scripts.md5sum import printsum
 
 def custom_write(file_name, string):
     file = open(file_name, 'w', encoding = 'utf-8')
-    list_byte = []
     string_positions = {}
     number = 0
     for i in string:
         curs_byte = file.tell()
         file.write(f'{i}\n')
         string_positions[number+1, curs_byte] = i
+    file.close()
     return string_positions
 
 
