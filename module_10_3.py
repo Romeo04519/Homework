@@ -10,7 +10,7 @@ class Bank:
 
     def deposit(self):
         for i in range(1,101):
-            if self.balance >= 500 and self.lock.acquire():
+            if self.balance >= 500 and self.lock.locked(): # true если закрыт
                 self.lock.release()
             rand_num = rd(50,500)
             self.balance += rand_num
@@ -28,10 +28,9 @@ class Bank:
                 sleep(0.001)
             else:
                 print('Запрос отклонён, недостаточно средств')
-                try:
-                    self.lock.acquire()
-                finally:
-                    self.lock.release()
+                sleep(0.001)
+                self.lock.acquire()
+
 
 
 
