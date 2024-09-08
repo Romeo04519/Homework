@@ -1,4 +1,3 @@
-import sys
 import inspect
 from pprint import pprint
 
