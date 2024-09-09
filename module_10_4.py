@@ -1,9 +1,6 @@
-from queue import Queue
-from threading import Thread
 from random import randint as rd
 from time import sleep
 import queue
-
 from threading import Thread
 
 
@@ -12,53 +9,64 @@ class Table:
         self.number = number
         self.guest = guest
 
+
 class Guest(Thread):
     def __init__(self, name):
         super().__init__()
         self.name = name
 
-
     def run(self):
-        sleep(rd(3,10))
+        sleep(rd(3, 10)) # не срабатывает при запуске потока
 
 
 class Cafe:
+    tables = []
     def __init__(self, *args):
-        self.queue = Queue
+        self.queue = queue.Queue()
         for i in args:
-            self.table = Table(i)
+            tabl = i.number, i.guest
+            Cafe.tables.append(list(tabl))
+
+    def guest_arrival(self, *guests_):
+        for i in guests_:
+            cit_ = False
+            for j in Cafe.tables:
+                if j[1] is None:
+                    j[1] = i
+                    i.start()
+                    print(f'{i.name} сел(а) за стол номер {j[0]}')
+                    cit_ = True
+                    break
+            if cit_ is False:
+                self.queue.put(i)
+                print(f'{i.name} в очереди')
+
+    def discuss_guests(self):
+        while not self.queue.empty():
+            for j in Cafe.tables:
+                if j[1].is_alive():
+                    print(f'{j[1].name} покушал(а) и ушел(ла)')
+                    print(f'Стол номер {j[0]} свободен')
+                    j[1] = None
+                if not self.queue.empty():
+                    for j in Cafe.tables:
+                        if j[1] is None:
+                            j[1] = self.queue.get()
+                            print(f'{j[1].name} вышел(-ла) из очереди и сел(-а) за стол номер {j[0]}')
+                            j[1].start()
 
 
-    def guest_arrival(self, *guests):
-        for i in guests:
-            if  self.table.guest == None:
-                self.table.guest = i
-                tabl_guest = Thread(target = Guest, args = (i,))
-                tabl_guest.start()
-                print(f'{i} сел(а) за стол номер {self.table.number}')
-            else:
-                self.queue.put()
-                print(f'{i} в очереди')
 
-    def  discuss_guests(self):
-        if queue.empty() or self.table.guest != None:
-            if self.table.guest != None and Guest.is_alive() == False:
-                print(f'{self.guest} покушал(а) и ушел(ла)')
-                print(f'Стол номер {self.number} свободен')
-                self.table.guest = None
-            elif queue.empty() and self.table.guest == None:
-                self.table.guest = self.queue.get()
-                print(f'{self.table.guest} вышел(-ла) из очереди и сел(-а) за стол номер {self.number}')
-                tabl_guest = Thread(target=Guest, args=(self.table.guest,))
-                tabl_guest.start()
+
+
 
 
 # Создание столов
 tables = [Table(number) for number in range(1, 6)]
 # Имена гостей
 guests_names = [
-'Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman',
-'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra'
+    'Maria', 'Oleg', 'Vakhtang', 'Sergey', 'Darya', 'Arman',
+    'Vitoria', 'Nikita', 'Galina', 'Pavel', 'Ilya', 'Alexandra'
 ]
 # Создание гостей
 guests = [Guest(name) for name in guests_names]
@@ -68,10 +76,3 @@ cafe = Cafe(*tables)
 cafe.guest_arrival(*guests)
 # Обслуживание гостей
 cafe.discuss_guests()
-
-
-
-
-
-
-
