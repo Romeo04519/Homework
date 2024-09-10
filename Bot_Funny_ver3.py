@@ -6,7 +6,7 @@ import asyncio
 
 from pyexpat.errors import messages
 
-API = ''
+API = '7401766775:AAHwxPj3psVD8Ntn5_4lMwZ1yiajnrOxRIg'
 bot = Bot(token = API)
 dp = Dispatcher(bot, storage = MemoryStorage())
 
@@ -44,6 +44,7 @@ async def send_calories(message, state):
     data = await state.get_data()
     cal_ = 10*float(data['weight_text']) + 6.25*float(data['growth_text']) + 5*float(data['age_text']) +5
     await message.answer(f'Ваша норма калорий: {cal_}')
+    await state.finish()
 
 
 
