@@ -8,7 +8,7 @@ import asyncio
 
 from pyexpat.errors import messages
 
-API = '7401766775:AAHwxPj3psVD8Ntn5_4lMwZ1yiajnrOxRIg'
+API = ''
 bot = Bot(token = API)
 dp = Dispatcher(bot, storage = MemoryStorage())
 
