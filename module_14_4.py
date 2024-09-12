@@ -6,8 +6,12 @@ from aiogram.types import ReplyKeyboardMarkup, KeyboardButton
 from aiogram.types import InlineKeyboardMarkup, InlineKeyboardButton
 import asyncio
 
+from crud_functions import get_all_product
 
-API = '7'
+
+users = get_all_product()
+
+API = ''
 bot = Bot(token = API)
 dp = Dispatcher(bot, storage = MemoryStorage())
 
@@ -56,16 +60,16 @@ async def main_menu(message):
 
 @dp.message_handler(text = 'Купить')
 async def get_buying_list(message):
-    await message.answer(f'Название: Продукт 1 | Описание: загородный дом | Цена: 4000000руб')
+    await message.answer(f'Название: {users[0][1]} | Описание: {users[0][2]} | Цена: {users[0][3]}')
     with open('img_/domik.jpg', 'rb') as img:
         await message.answer_photo(img)
-    await message.answer('Название: Продукт 2 | Описание: бодрящий напиток | Цена: 100руб')
+    await message.answer(f'Название: {users[1][1]}| Описание: {users[1][2]} | Цена: {users[1][3]}руб')
     with open('img_/cofe.jpg', 'rb') as img:
         await message.answer_photo(img)
-    await message.answer('Название: Продукт 3 | Описание: поездка в горы | Цена: 50000руб')
+    await message.answer(f'Название: {users[2][1]} | Описание: {users[2][2]} | Цена: {users[2][3]}руб')
     with open('img_/mountain.jpg', 'rb') as img:
         await message.answer_photo(img)
-    await message.answer('Название: Продуки 4 | Описание: баскетбольный мяч | Цена: 5000руб')
+    await message.answer(f'Название: {users[3][1]} | Описание: {users[3][2]} | Цена: {users[3][3]}руб')
     with open('img_/sport.jpg', 'rb') as img:
         await message.answer_photo(img)
     await message.answer('Что-нибудь приглянулось?', reply_markup = catalog_kb)
