@@ -6,13 +6,17 @@ class Inspec:
     def __init__(self, obj):
         self.obj = obj
 
-
     def introspection_info(self):
+        atr_list = []
         dict_obj = {}
         type_ = type(self.obj)
         dict_obj['type'] = type_
-        attrib_ = dir(self.obj)
-        dict_obj['attributes'] = attrib_
+        for i in dir(self.obj):
+            if inspect.isfunction(i) or inspect.ismethod(i):
+                continue
+            else:
+                atr_list.append(i)
+        dict_obj['attributes'] = atr_list
         methods_ = inspect.getmembers(number_info, predicate=inspect.ismethod)
         dict_obj['methods'] = methods_
         module_ = inspect.getmodule(self.obj)
