@@ -23,11 +23,9 @@ async def welcome() -> List[User]:
 
 @app.post('/user/{username}/{age}')
 async def welcome_id_user(username: str, age = int) -> str:
-    User.id = len(users)+1
-    User.username = str(username)
-    User.age = age
-    users.append(User)
-    return f'User {User.id} is registered'
+    id_name = len(users)+1
+    users.append(User(id = id_name, username = username, age = age))
+    return f'User {id_name} is registered'
 
 @app.put('/user/{user_id}/{username}/{age}')
 async def change_id_user(user_id: int, username: str, age: int) -> str:
