@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from task4.views import main_page, books, about_us
+from task5.views import sign_up_by_html, sign_up_by_django
 
 # from task2.views import c_templ, f_templ
 
@@ -25,8 +25,7 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     # path('', c_templ),
     # path('ftempl/', f_templ),
-    path('', main_page),
-    path('games/', books),
-    path('about_us/', about_us),
+    path('', sign_up_by_html),
+    path('django_sign_up/', sign_up_by_django),
 
 ]
