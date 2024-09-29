@@ -17,7 +17,7 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import path
 
-from task3.views import main_page, books, about_us
+from task4.views import main_page, books, about_us
 
 # from task2.views import c_templ, f_templ
 
