@@ -1,0 +1,23 @@
+{% extends 'menu.html' %}
+
+{% block pagename %}
+    {{ block.super }}
+{% endblock %}
+
+{% block menu %}
+    {{ block.super }}
+{% endblock %}
+
+{% block content %}
+    <form method="post">
+        {% csrf_token %}
+        <label for="post_number"> Количество постов на странице:</label>
+        <select name="post_number" id="post_number">
+            <option>3</option>
+            <option>2</option>
+            <option>1</option>
+        </select>
+        <button type="submit">Выбрать</button>
+
+    </form>
+{% endblock %}
